@@ -96,204 +96,206 @@ class _ContatosPageState extends State<ContatosPage> {
         backgroundColor: Color.fromARGB(255, 42, 42, 42), //cor do appBar
         automaticallyImplyLeading: false, //remove a seta de voltar (arrowback)
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0), //espaçamento geral da lista
-        child: ListView.separated(
-          separatorBuilder:
-              (context, index) => SizedBox(height: 15), //espaço entre os cards
-          itemCount: listaContatos.length, //quantidade de itens na lista
-          itemBuilder: (context, index) {
-            final contato = listaContatos[index]; //pega o contato da vez
-            return ExpansionTile(
-              onExpansionChanged: (value) {
-                //setState(() {
-                  //isExpanded = value;
-               // });
-              },
-              trailing: Icon(
-                isExpanded
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down,
-                color: Colors.white,
-                size: 30,
-              ),
-              backgroundColor: Color.fromARGB(
-                255,
-                42,
-                42,
-                42,
-              ), //cor quando aberto
-              collapsedBackgroundColor: Color.fromARGB(
-                255,
-                42,
-                42,
-                42,
-              ), //cor quando fechado
-              iconColor: Colors.white, //cor do ícone aberto
-              collapsedIconColor: Colors.white, //cor do ícone fechado
-              collapsedShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15), //bordas quando fechado
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15), //bordas quando aberto
-              ),
-              title: Row(
-                children: [
-                  CircleAvatar(
-                    child: Text(
-                      contato.nomeContato[0],
-                      style: TextStyle(
-                        fontFamily: 'Lexend',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ), //pega a primeira letra do nome
-                    backgroundColor: corAleatoria(), //cor aleatória no avatar
-                    foregroundColor: Colors.white, //cor da letra
-                  ),
-                  SizedBox(width: 10), //espaço entre avatar e nome
-                  Text(
-                    contato.nomeContato, //exibe o nome do contato
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Lexend',
-                      fontSize: 21,
-                    ),
-                  ),
-                ],
-              ),
-              children: [
-                Row(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0), //espaçamento geral da lista
+          child: ListView.separated(
+            separatorBuilder:
+                (context, index) => SizedBox(height: 15), //espaço entre os cards
+            itemCount: listaContatos.length, //quantidade de itens na lista
+            itemBuilder: (context, index) {
+              final contato = listaContatos[index]; //pega o contato da vez
+              return ExpansionTile(
+                onExpansionChanged: (value) {
+                  setState(() {
+                    isExpanded = value;
+                 });
+                },
+                trailing: Icon(
+                  isExpanded
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                backgroundColor: Color.fromARGB(
+                  255,
+                  42,
+                  42,
+                  42,
+                ), //cor quando aberto
+                collapsedBackgroundColor: Color.fromARGB(
+                  255,
+                  42,
+                  42,
+                  42,
+                ), //cor quando fechado
+                iconColor: Colors.white, //cor do ícone aberto
+                collapsedIconColor: Colors.white, //cor do ícone fechado
+                collapsedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), //bordas quando fechado
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), //bordas quando aberto
+                ),
+                title: Row(
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0), //espaço interno
-                        child: ContainerCustom(
-                          texto: "Celular", //título do campo
-                          texto2: contato.celularContato, //valor do campo
+                    CircleAvatar(
+                      child: Text(
+                        contato.nomeContato[0],
+                        style: TextStyle(
+                          fontFamily: 'Lexend',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ),
+                      ), //pega a primeira letra do nome
+                      backgroundColor: corAleatoria(), //cor aleatória no avatar
+                      foregroundColor: Colors.white, //cor da letra
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0), //espaço interno
-                        child: ContainerCustom(
-                          texto: "Telefone", //título do campo
-                          texto2:
-                              contato.telefoneContato ??
-                              "", //valor do campo (verifica se é nulo)
-                        ),
+                    SizedBox(width: 10), //espaço entre avatar e nome
+                    Text(
+                      contato.nomeContato, //exibe o nome do contato
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Lexend',
+                        fontSize: 21,
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0), //espaço do campo
-                  child: ContainerCustom(
-                    texto: "Anotações", //título do campo
-                    texto2:
-                        contato.anotaContato ??
-                        "", //valor do campo (verifica se é nulo)
-                  ),
-                ),
-                SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
+                children: [
+                  Row(
                     children: [
                       Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            deleteContato(index);
-                          },
-                          child: Icon(
-                            Icons.delete,
-                            color: Color(0xFFA62424),
-                            size: 28,
-                          ),
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder
-                            >(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                            ),
-                            minimumSize: MaterialStateProperty.all<Size>(
-                              Size(100, 60),
-                            ),
-                            backgroundColor: WidgetStateProperty.all(
-                              Color(0xFFE03535),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0), //espaço interno
+                          child: ContainerCustom(
+                            texto: "Celular", //título do campo
+                            texto2: contato.celularContato, //valor do campo
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
                       Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            editContato(contato, index);
-                          },
-                          child: Icon(
-                            Icons.edit_square,
-                            color: Color(0xFF7D7300),
-                            size: 25,
-                          ),
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder
-                            >(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                            ),
-                            minimumSize: MaterialStateProperty.all<Size>(
-                              Size(150, 60),
-                            ),
-                            backgroundColor: WidgetStateProperty.all(
-                              Color(0xFFE4E446),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.call,
-                            color: Color(0xFF38A244),
-                            size: 28,
-                          ),
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder
-                            >(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                            ),
-                            minimumSize: MaterialStateProperty.all<Size>(
-                              Size(150, 60),
-                            ),
-                            backgroundColor: WidgetStateProperty.all(
-                              Color(0xFF46E451),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0), //espaço interno
+                          child: ContainerCustom(
+                            texto: "Telefone", //título do campo
+                            texto2:
+                                contato.telefoneContato ??
+                                "", //valor do campo (verifica se é nulo)
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            );
-          },
+                  Padding(
+                    padding: const EdgeInsets.all(15.0), //espaço do campo
+                    child: ContainerCustom(
+                      texto: "Anotações", //título do campo
+                      texto2:
+                          contato.anotaContato ??
+                          "", //valor do campo (verifica se é nulo)
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              deleteContato(index);
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              color: Color(0xFFA62424),
+                              size: 28,
+                            ),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder
+                              >(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(100, 60),
+                              ),
+                              backgroundColor: WidgetStateProperty.all(
+                                Color(0xFFE03535),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              editContato(contato, index);
+                            },
+                            child: Icon(
+                              Icons.edit_square,
+                              color: Color(0xFF7D7300),
+                              size: 25,
+                            ),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder
+                              >(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(150, 60),
+                              ),
+                              backgroundColor: WidgetStateProperty.all(
+                                Color(0xFFE4E446),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Icon(
+                              Icons.call,
+                              color: Color(0xFF38A244),
+                              size: 28,
+                            ),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder
+                              >(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(150, 60),
+                              ),
+                              backgroundColor: WidgetStateProperty.all(
+                                Color(0xFF46E451),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation:
