@@ -106,9 +106,9 @@ class _ContatosPageState extends State<ContatosPage> {
             final contato = listaContatos[index]; //pega o contato da vez
             return ExpansionTile(
               onExpansionChanged: (value) {
-                setState(() {
-                  isExpanded = value;
-                });
+                //setState(() {
+                  //isExpanded = value;
+               // });
               },
               trailing: Icon(
                 isExpanded

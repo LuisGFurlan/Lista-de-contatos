@@ -37,33 +37,32 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
   final inputTelefoneContatoController = TextEditingController();
 
   void SalvarEditContato() {
-  setState(() {
-    listaContatos[widget.index!] = Contatos(
-      nomeContato: inputNomeConatoController.text,
-      anotaContato: inputAnotaContatoController.text,
-      celularContato: inputCelularContatoController.text,
-      telefoneContato: inputTelefoneContatoController.text,
-    );
-
-    QuickAlert.show(
-      title: 'Sucesso',
-      context: context,
-      type: QuickAlertType.success,
-      text: 'Contato Atualizado!',
-      confirmBtnText: 'OK',
-      backgroundColor: Color.fromARGB(255, 30, 30, 30),
-      textColor: Colors.white,
-      titleColor: Colors.white,
-      confirmBtnColor: Color(0xFF15bf5f),
-    ).then((_) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ContatosPage()),
+    setState(() {
+      listaContatos[widget.index!] = Contatos(
+        nomeContato: inputNomeConatoController.text,
+        anotaContato: inputAnotaContatoController.text,
+        celularContato: inputCelularContatoController.text,
+        telefoneContato: inputTelefoneContatoController.text,
       );
-    });
-  });
-}
 
+      QuickAlert.show(
+        title: 'Sucesso',
+        context: context,
+        type: QuickAlertType.success,
+        text: 'Contato Atualizado!',
+        confirmBtnText: 'OK',
+        backgroundColor: Color.fromARGB(255, 30, 30, 30),
+        textColor: Colors.white,
+        titleColor: Colors.white,
+        confirmBtnColor: Color(0xFF15bf5f),
+      ).then((_) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ContatosPage()),
+        );
+      });
+    });
+  }
 
   void salvarContatoButton() {
     setState(() {
@@ -134,119 +133,128 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 32),
         centerTitle: true,
-        title: Text("Adicionar Contato", style: TextStyle(color: Colors.white,fontFamily: 'Lexend', fontSize: 24,fontWeight: FontWeight.bold)),
+        title: Text(
+          "Adicionar Contato",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Lexend',
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Color.fromARGB(255, 42, 42, 42),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                TextFieldCustom(
-                  texto: "Nome",
-                  onChanged: (String value) {},
-                  obscureText: false,
-                  controller: inputNomeConatoController,
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          TextFieldCustom(
-                            formatTelefone: [
-                              //adiciona o formato padrão de um número brasileiro
-                              FilteringTextInputFormatter.digitsOnly,
-                              TelefoneInputFormatter(),
-                            ],
-                            texto: "Celular",
-                            onChanged: (String value) {},
-                            obscureText: false,
-                            controller: inputCelularContatoController,
-                          ),
-                        ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  TextFieldCustom(
+                    texto: "Nome",
+                    onChanged: (String value) {},
+                    obscureText: false,
+                    controller: inputNomeConatoController,
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            TextFieldCustom(
+                              formatTelefone: [
+                                //adiciona o formato padrão de um número brasileiro
+                                FilteringTextInputFormatter.digitsOnly,
+                                TelefoneInputFormatter(),
+                              ],
+                              texto: "Celular",
+                              onChanged: (String value) {},
+                              obscureText: false,
+                              controller: inputCelularContatoController,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            TextFieldCustom(
+                              formatTelefone: [
+                                //adiciona o formato padrão de um número brasileiro
+                                FilteringTextInputFormatter.digitsOnly,
+                                TelefoneInputFormatter(),
+                              ],
+                              texto: "Telefone",
+                              onChanged: (String value) {},
+                              obscureText: false,
+                              controller: inputTelefoneContatoController,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  TextFieldCustom(
+                    linhas: 3,
+                    obscureText: false,
+                    controller: inputAnotaContatoController,
+                    onChanged: (String value) {},
+                    texto: "Anotações",
+                  ),
+                ],
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: cancelarContatoButton,
+                      child: Text(
+                        "Cancelar",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.transparent,
+                        ), //deixa transparente
+                        elevation: MaterialStateProperty.all(0), //remove a sombra
+                        minimumSize: WidgetStateProperty.all(
+                          Size(150, 52),
+                        ), //width (largura) é o primeiro parametro e o heigth (altura) é o segundo
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          TextFieldCustom(
-                            formatTelefone: [
-                              //adiciona o formato padrão de um número brasileiro
-                              FilteringTextInputFormatter.digitsOnly,
-                              TelefoneInputFormatter(),
-                            ],
-                            texto: "Telefone",
-                            onChanged: (String value) {},
-                            obscureText: false,
-                            controller: inputTelefoneContatoController,
-                          ),
-                        ],
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (widget.index != null) {
+                          SalvarEditContato();
+                        } else {
+                          salvarContatoButton();
+                        }
+                      },
+                      child: Text(
+                        "Salvar",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                          Color(0xFF925CFF),
+                        ), //Dentro do botão o WidgetStateProperty é necessário pra mudar a cor
+                        minimumSize: WidgetStateProperty.all(
+                          Size(150, 52),
+                        ), //width (largura) é o primeiro parametro e o heigth (altura) é o segundo
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                TextFieldCustom(
-                  linhas: 3,
-                  obscureText: false,
-                  controller: inputAnotaContatoController,
-                  onChanged: (String value) {},
-                  texto: "Anotações",
-                ),
-              ],
-            ),
-            Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: cancelarContatoButton,
-                    child: Text(
-                      "Cancelar",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Colors.transparent,
-                      ), //deixa transparente
-                      elevation: MaterialStateProperty.all(0), //remove a sombra
-                      minimumSize: WidgetStateProperty.all(
-                        Size(150, 52),
-                      ), //width (largura) é o primeiro parametro e o heigth (altura) é o segundo
-                    ),
                   ),
-                ),
-                Expanded(
-                  child: ElevatedButton(
-
-                    onPressed: () {
-                      if (widget.index != null) {
-                        SalvarEditContato();
-                      } else {
-                        salvarContatoButton();
-                      }
-                    },
-                    child: Text(
-                      "Salvar",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                        Color(0xFF925CFF),
-                      ), //Dentro do botão o WidgetStateProperty é necessário pra mudar a cor
-                      minimumSize: WidgetStateProperty.all(
-                        Size(150, 52),
-                      ), //width (largura) é o primeiro parametro e o heigth (altura) é o segundo
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

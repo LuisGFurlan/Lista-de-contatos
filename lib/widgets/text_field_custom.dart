@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-
 class TextFieldCustom extends StatefulWidget {
   final bool obscureText;
   final TextEditingController controller;
@@ -28,24 +27,30 @@ class TextFieldCustom extends StatefulWidget {
 }
 
 class _TextFieldCustomState extends State<TextFieldCustom> {
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Align(
-          alignment: Alignment.centerLeft, //Estilizo a posição do meu text
-          child: Text(
-            widget.texto,
-            style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: 'Lexend', fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.only(left: 10),
+          child: Align(
+            alignment: Alignment.centerLeft, //Estilizo a posição do meu text
+            child: Text(
+              widget.texto,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: 'Lexend',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
-      ),
         Container(
-          width: MediaQuery.of(context).size.width, //está definindo que o container tenha a mesma largura da tela
+          width:
+              MediaQuery.of(context)
+                  .size
+                  .width, //está definindo que o container tenha a mesma largura da tela
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 42, 42, 42),
             borderRadius: BorderRadius.circular(15),
@@ -53,7 +58,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: TextField(
-              inputFormatters: widget.formatTelefone, //adiciona o formato padrão de um número brasileiro
+              inputFormatters:
+                  widget
+                      .formatTelefone, //adiciona o formato padrão de um número brasileiro
               textAlign: TextAlign.left,
               maxLines: widget.linhas ?? 1, //define o máximo de linhas
               minLines: widget.linhas ?? 1, //define o minimio de linhas

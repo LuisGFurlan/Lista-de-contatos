@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Contatos{
-  final  String nomeContato; 
-  final  String? anotaContato; 
-  final  String celularContato; 
-  final  String? telefoneContato;
+class Contatos {
+  final String nomeContato;
+  final String? anotaContato;
+  final String celularContato;
+  final String? telefoneContato;
 
   Contatos({
     required this.nomeContato,
