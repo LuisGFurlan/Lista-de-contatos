@@ -126,6 +126,7 @@ class _ContatosPageState extends State<ContatosPage> {
                       children: [
                         CircleAvatar(
                           child: Text(
+                            overflow: TextOverflow.ellipsis,
                             contato.nomeContato[0],
                             style: TextStyle(
                               fontFamily: 'Lexend',
@@ -137,12 +138,16 @@ class _ContatosPageState extends State<ContatosPage> {
                           foregroundColor: Colors.white, //cor da letra
                         ),
                         SizedBox(width: 10), //espaço entre avatar e nome
-                        Text(
-                          contato.nomeContato, //exibe o nome do contato
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Lexend',
-                            fontSize: 21,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.63,
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            contato.nomeContato, //exibe o nome do contato
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Lexend',
+                              fontSize: 21,
+                            ),
                           ),
                         ),
                       ],
@@ -179,11 +184,15 @@ class _ContatosPageState extends State<ContatosPage> {
                         visible :contato.anotaContato!.isNotEmpty,
                         child: Padding(
                           padding: const EdgeInsets.all(15.0), //espaço do campo
-                          child: ContainerCustom(
-                            texto: "Anotações", //título do campo
-                            texto2:
-                                contato.anotaContato ??
-                                "", //valor do campo (verifica se é nulo)
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ContainerCustom(
+                              
+                              texto: "Anotações", //título do campo
+                              texto2:
+                                  contato.anotaContato ??
+                                  "", //valor do campo (verifica se é nulo)
+                            ),
                           ),
                         ),
                       ),

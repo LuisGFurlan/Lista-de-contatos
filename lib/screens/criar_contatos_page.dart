@@ -41,14 +41,14 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
   void SalvarEditContato() {
     setState(() {
       listaContatos[widget.index!] = Contatos(
-        nomeContato: inputNomeConatoController.text,
-        anotaContato: inputAnotaContatoController.text,
+        nomeContato: inputNomeConatoController.text.trim(),
+        anotaContato: inputAnotaContatoController.text.trim(),
         celularContato: inputCelularContatoController.text,
         telefoneContato: inputTelefoneContatoController.text,
         cor: widget.contato!.cor,
       );
 
-      if (inputNomeConatoController.text.isEmpty ||
+      if (inputNomeConatoController.text.trim().isEmpty ||
           inputCelularContatoController.text.isEmpty) {
         //isEmpty verifica se o controller está vazio
         QuickAlert.show(
@@ -112,14 +112,14 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
       final random = Random();
       final corAleatoria = cores[random.nextInt(cores.length)];
       Contatos contato = Contatos(
-        nomeContato: inputNomeConatoController.text,
-        anotaContato: inputAnotaContatoController.text,
+        nomeContato: inputNomeConatoController.text.trim(),
+        anotaContato: inputAnotaContatoController.text.trim(),
         celularContato: inputCelularContatoController.text,
         telefoneContato: inputTelefoneContatoController.text,
         cor: corAleatoria,
       );
 
-      if (inputNomeConatoController.text.isEmpty ||
+      if (inputNomeConatoController.text.trim().isEmpty ||
           inputCelularContatoController.text.isEmpty) {
         //isEmpty verifica se o controller está vazio
         QuickAlert.show(
@@ -238,6 +238,7 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
                         child: Column(
                           children: [
                             TextFieldCustom(
+                              keyboardType: TextInputType.phone,
                               formatTelefone: [
                                 //adiciona o formato padrão de um número brasileiro
                                 FilteringTextInputFormatter.digitsOnly,
@@ -256,6 +257,7 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
                         child: Column(
                           children: [
                             TextFieldCustom(
+                              keyboardType: TextInputType.phone,
                               formatTelefone: [
                                 //adiciona o formato padrão de um número brasileiro
                                 FilteringTextInputFormatter.digitsOnly,
