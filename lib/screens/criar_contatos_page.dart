@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,34 +45,7 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
         anotaContato: inputAnotaContatoController.text,
         celularContato: inputCelularContatoController.text,
         telefoneContato: inputTelefoneContatoController.text,
-      );
-
-      QuickAlert.show(
-        title: 'Sucesso',
-        context: context,
-        type: QuickAlertType.success,
-        text: 'Contato Atualizado!',
-        confirmBtnText: 'OK',
-        backgroundColor: Color.fromARGB(255, 30, 30, 30),
-        textColor: Colors.white,
-        titleColor: Colors.white,
-        confirmBtnColor: Color(0xFF15bf5f),
-      ).then((_) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ContatosPage()),
-        );
-      });
-    });
-  }
-
-  void salvarContatoButton() {
-    setState(() {
-      Contatos contato = Contatos(
-        nomeContato: inputNomeConatoController.text,
-        anotaContato: inputAnotaContatoController.text,
-        celularContato: inputCelularContatoController.text,
-        telefoneContato: inputTelefoneContatoController.text,
+        cor: widget.contato!.cor,
       );
 
       if (inputNomeConatoController.text.isEmpty ||
@@ -86,30 +61,128 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
           backgroundColor: Color.fromARGB(255, 30, 30, 30),
           confirmBtnText: 'OK',
           confirmBtnColor: Color(0xFFdd90452),
-        ).then((_) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CriarContatosPage()),
-          );
-        });
+        );
+        return;
       } else {
-        listaContatos.add(contato);
-        QuickAlert.show(
-          title: 'Sucesso',
-          context: context,
-          type: QuickAlertType.success,
-          text: 'Contato Adicionado!',
-          confirmBtnText: 'OK',
-          backgroundColor: Color.fromARGB(255, 30, 30, 30),
-          textColor: Colors.white,
-          titleColor: Colors.white,
-          confirmBtnColor: Color(0xFF15bf5f),
-        ).then((_) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ContatosPage()),
+        if (inputCelularContatoController.text.length <= 14) {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Erro',
+            titleColor: Colors.white,
+            text: 'Digite o número completo!',
+            textColor: Colors.white,
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            confirmBtnText: 'OK',
+            confirmBtnColor: Color(0xFFdd90452),
           );
-        });
+          return;
+        } else {
+          QuickAlert.show(
+            title: 'Sucesso',
+            context: context,
+            type: QuickAlertType.success,
+            text: 'Contato Atualizado!',
+            confirmBtnText: 'OK',
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            textColor: Colors.white,
+            titleColor: Colors.white,
+            confirmBtnColor: Color(0xFF15bf5f),
+          ).then((_) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContatosPage()),
+            );
+          });
+        }
+      }
+    });
+  }
+
+  void salvarContatoButton() {
+    setState(() {
+      final cores = [
+        Colors.red,
+        Colors.green,
+        Colors.blue,
+        Colors.purple,
+        Colors.orange,
+        Colors.teal,
+      ];
+      final random = Random();
+      final corAleatoria = cores[random.nextInt(cores.length)];
+      Contatos contato = Contatos(
+        nomeContato: inputNomeConatoController.text,
+        anotaContato: inputAnotaContatoController.text,
+        celularContato: inputCelularContatoController.text,
+        telefoneContato: inputTelefoneContatoController.text,
+        cor: corAleatoria,
+      );
+
+      if (inputNomeConatoController.text.isEmpty ||
+          inputCelularContatoController.text.isEmpty) {
+        //isEmpty verifica se o controller está vazio
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          title: 'Erro',
+          titleColor: Colors.white,
+          text: 'Nome e Celular são obrigatórios!',
+          textColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 30, 30, 30),
+          confirmBtnText: 'OK',
+          confirmBtnColor: Color(0xFFdd90452),
+        );
+        return;
+      } else {
+        if (inputCelularContatoController.text.length < 15) {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Erro',
+            titleColor: Colors.white,
+            text: 'Digite o número do celular completamente!',
+            textColor: Colors.white,
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            confirmBtnText: 'OK',
+            confirmBtnColor: Color(0xFFdd90452),
+          );
+          return;
+        } else {
+          if (inputTelefoneContatoController.text.isNotEmpty &&
+              inputTelefoneContatoController.text.length < 14) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: 'Erro',
+              titleColor: Colors.white,
+              text: 'Digite o número do telefone completamente!',
+              textColor: Colors.white,
+              backgroundColor: Color.fromARGB(255, 30, 30, 30),
+              confirmBtnText: 'OK',
+              confirmBtnColor: Color(0xFFdd90452),
+            );
+            return;
+          } else {
+            listaContatos.add(contato);
+            QuickAlert.show(
+              title: 'Sucesso',
+              context: context,
+              type: QuickAlertType.success,
+              text: 'Contato Adicionado!',
+              confirmBtnText: 'OK',
+              backgroundColor: Color.fromARGB(255, 30, 30, 30),
+              textColor: Colors.white,
+              titleColor: Colors.white,
+              confirmBtnColor: Color(0xFF15bf5f),
+            ).then((_) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ContatosPage()),
+              );
+            });
+          }
+        }
       }
 
       inputNomeConatoController.clear();
@@ -156,6 +229,7 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
                     onChanged: (String value) {},
                     obscureText: false,
                     controller: inputNomeConatoController,
+                    maxlength: 120,
                   ),
                   SizedBox(height: 15),
                   Row(
@@ -204,6 +278,7 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
                     controller: inputAnotaContatoController,
                     onChanged: (String value) {},
                     texto: "Anotações",
+                    maxlength: 200,
                   ),
                 ],
               ),
@@ -221,7 +296,9 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
                         backgroundColor: MaterialStateProperty.all(
                           Colors.transparent,
                         ), //deixa transparente
-                        elevation: MaterialStateProperty.all(0), //remove a sombra
+                        elevation: MaterialStateProperty.all(
+                          0,
+                        ), //remove a sombra
                         minimumSize: WidgetStateProperty.all(
                           Size(150, 52),
                         ), //width (largura) é o primeiro parametro e o heigth (altura) é o segundo

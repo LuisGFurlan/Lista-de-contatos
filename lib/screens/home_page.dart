@@ -30,26 +30,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   void verificaLoguin(context) {
-    if (tamSenha < 6) {
-      setState(() {
-        tamSenha2 = false;
-      });
-      return;
-    }
-    if (email == inputEmailController.text &&
-        senha == inputSenhaController.text) {
-      setState(() {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ContatosPage()),
-        ); // ao nome da classe da nova página
-      });
-    } else {
-      setState(() {
-        loguin = false;
-      });
-    }
+  if (tamSenha < 6) {
+    setState(() {
+      tamSenha2 = false;
+    });
+    return;
   }
+
+  if (email == inputEmailController.text &&
+      senha == inputSenhaController.text) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => ContatosPage()),
+      (Route<dynamic> route) => false,
+    );
+  } else {
+    setState(() {
+      loguin = false;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {

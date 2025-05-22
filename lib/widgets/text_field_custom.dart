@@ -10,6 +10,7 @@ class TextFieldCustom extends StatefulWidget {
   final Widget? visibility;
   final String texto;
   final int? linhas;
+  final int? maxlength;
   final List<TextInputFormatter>? formatTelefone;
   const TextFieldCustom({
     super.key,
@@ -20,6 +21,7 @@ class TextFieldCustom extends StatefulWidget {
     this.visibility,
     this.linhas,
     this.formatTelefone,
+    this.maxlength,
   });
 
   @override
@@ -58,6 +60,8 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: TextField(
+              maxLength: widget.maxlength,
+               buildCounter: (context, {required currentLength, required isFocused, required maxLength}) => null, //remove o contador de caracteres
               inputFormatters:
                   widget
                       .formatTelefone, //adiciona o formato padrão de um número brasileiro
