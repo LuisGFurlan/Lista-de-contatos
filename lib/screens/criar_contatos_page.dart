@@ -89,9 +89,10 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
             titleColor: Colors.white,
             confirmBtnColor: Color(0xFF15bf5f),
           ).then((_) {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => ContatosPage()),
+              (Route<dynamic> route) => false,
             );
           });
         }
@@ -176,9 +177,10 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
               titleColor: Colors.white,
               confirmBtnColor: Color(0xFF15bf5f),
             ).then((_) {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => ContatosPage()),
+                (Route<dynamic> route) => false,
               );
             });
           }
@@ -193,9 +195,10 @@ class _CriarContatosPageState extends State<CriarContatosPage> {
   }
 
   void cancelarContatoButton() {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => ContatosPage()),
+      (Route<dynamic> route) => false,
     );
   }
 

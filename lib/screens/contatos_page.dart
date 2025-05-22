@@ -23,35 +23,35 @@ class _ContatosPageState extends State<ContatosPage> {
     super.initState();
   }
 
-  
-
   void deleteContato(index) {
     listaContatos.removeAt(index);
     QuickAlert.show(
-        title: 'Sucesso',
-        context: context,
-        type: QuickAlertType.success,
-        text: 'Contato Excluido!',
-        confirmBtnText: 'OK',
-        backgroundColor: Color.fromARGB(255, 30, 30, 30),
-        textColor: Colors.white,
-        titleColor: Colors.white,
-        confirmBtnColor: Color(0xFF15bf5f),
-      ).then((_) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ContatosPage()),
-        );
-      });
+      title: 'Sucesso',
+      context: context,
+      type: QuickAlertType.success,
+      text: 'Contato Excluido!',
+      confirmBtnText: 'OK',
+      backgroundColor: Color.fromARGB(255, 30, 30, 30),
+      textColor: Colors.white,
+      titleColor: Colors.white,
+      confirmBtnColor: Color(0xFF15bf5f),
+    ).then((_) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => ContatosPage()),
+        (Route<dynamic> route) => false,
+      );
+    });
     ;
   }
 
   void editContato(Contatos contato, int index) {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (context) => CriarContatosPage(contato: contato, index: index),
       ),
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -134,12 +134,13 @@ class _ContatosPageState extends State<ContatosPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ), //pega a primeira letra do nome
-                          backgroundColor: contato.cor, //cor aleatória no avatar
+                          backgroundColor:
+                              contato.cor, //cor aleatória no avatar
                           foregroundColor: Colors.white, //cor da letra
                         ),
                         SizedBox(width: 10), //espaço entre avatar e nome
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.63,
+                          width: MediaQuery.of(context).size.width * 0.63,
                           child: Text(
                             overflow: TextOverflow.ellipsis,
                             contato.nomeContato, //exibe o nome do contato
@@ -157,7 +158,9 @@ class _ContatosPageState extends State<ContatosPage> {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.all(15.0), //espaço interno
+                              padding: const EdgeInsets.all(
+                                15.0,
+                              ), //espaço interno
                               child: ContainerCustom(
                                 texto: "Celular", //título do campo
                                 texto2: contato.celularContato, //valor do campo
@@ -168,26 +171,28 @@ class _ContatosPageState extends State<ContatosPage> {
                             child: Visibility(
                               visible: contato.telefoneContato!.isNotEmpty,
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0), //espaço interno
+                                padding: const EdgeInsets.all(
+                                  15.0,
+                                ), //espaço interno
                                 child: ContainerCustom(
                                   texto: "Telefone", //título do campo
                                   texto2:
-                                      contato.telefoneContato ?? ""//valor do campo (verifica se é nulo)
+                                      contato.telefoneContato ??
+                                      "", //valor do campo (verifica se é nulo)
                                 ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      
+
                       Visibility(
-                        visible :contato.anotaContato!.isNotEmpty,
+                        visible: contato.anotaContato!.isNotEmpty,
                         child: Padding(
                           padding: const EdgeInsets.all(15.0), //espaço do campo
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: ContainerCustom(
-                              
                               texto: "Anotações", //título do campo
                               texto2:
                                   contato.anotaContato ??
@@ -293,13 +298,13 @@ class _ContatosPageState extends State<ContatosPage> {
                       ),
                     ],
                   ),
-                  (listaContatos.length-1) == index ?
-                  SizedBox(height: 85,) : SizedBox()
+                  (listaContatos.length - 1) == index
+                      ? SizedBox(height: 85)
+                      : SizedBox(),
                 ],
               );
             },
           ),
-          
         ),
       ),
       floatingActionButtonLocation:
@@ -309,12 +314,11 @@ class _ContatosPageState extends State<ContatosPage> {
         height: 70,
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CriarContatosPage(),
-              ), //navega para a página de criar contatos
-            );
+            Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => CriarContatosPage()),
+      (Route<dynamic> route) => false,
+    );
           },
           child: Icon(
             Icons.add,
